@@ -1,0 +1,49 @@
+
+
+{% extends 'base.html' %}
+
+
+{% block contenido_cuerpo %}
+
+    <a href="{% url 'articulos:path_crear_articulo' %}">CREAR NUEVO ARTICULO</a>
+    <h1>LISTA DE ARTICULOS</h1>
+
+    <section class="posts">
+
+        {% for articulo in articulos %}
+            <article>
+
+                {% if articulo.imagen %}
+
+                    <style>
+						.imagen_producto {
+							width: auto;
+							height: 600px;
+							object-fit: cover;
+							border-radius: 10px;
+						}
+					</style>
+
+                    <div class="image">
+                        <img src="{{ articulo.imagen.url }}" alt="{{ articulo.nombre }}" class="imagen_producto">
+                    </div>
+
+                {% endif %}
+
+                <h3>{{ articulo.nombre }}</h3>
+                <p>{{ articulo.descripcion }}</p>
+
+                <div class="actions">
+                    <a href="{% url 'articulos:path_detalle_articulo' articulo.pk %}" class="button"> Leer más </a>
+                </div>
+            </article>
+
+        {% empty %}
+            <p> No hay artículos publicados todavía...</p>
+        {% endfor %}
+
+    </section>
+
+
+{% endblock %}
+
